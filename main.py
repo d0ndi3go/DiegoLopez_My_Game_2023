@@ -3,7 +3,7 @@
 # testing testing
 # dhuhrfje
 # fhfkffjfrocvjrirjji 
-
+import pygame as sleep
 #
 # import libs
 import pygame as pg
