@@ -61,15 +61,23 @@ class Mob(Sprite):
         self.acc.y = -MOB_ACC
         if self.rect.x > WIDTH:
             print("I'm off the right screen...")
+            self.vel.x *= -1
+            self.pos.x += self.vel.x
         if self.rect.x < 0:
             print("I'm off the left screen...")
+            self.vel.x *= -1
+            self.pos.x += self.vel.x
         if self.rect.y < 0:
             print("I'm off the top screen...")
+            self.vel.y *= -1
+            self.pos.y += self.vel.x
         if self.rect.y > HEIGHT:
             print("I'm off the bottom screen...")
+            self.vel.y *= -1
+            self.pos.y += self.vel.x
     def update(self):
         self.acc = self.vel * MOB_FRICTION
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos
-        
+        #jffi

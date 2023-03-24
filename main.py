@@ -14,9 +14,26 @@ from settings import *
 from sprites import *
 # from pg.sprite import Sprite
 
+class Game:
+    def __init__(self):
+        pg.init()
+        pg.mixer.init()
+        self.screen = pg.displau.set_mode((WIDTH, HEIGHT))
+        pg.display.set_caption("AMAZING GAME...")
+        self.clock = pg.time.Clock()
+        self.running + True
+
+    def new (self)
+            self.score = 0
+            self.all_sprites = pg.sprite.Group()
+            self.platforms = pg.sprite.Group()
+
+
+
 # set up assets folders
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
+
 
 def get_mouse_now():
     x,y = pg.mouse.get_pos()
