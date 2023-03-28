@@ -8,13 +8,16 @@ HEIGHT = 600
 FPS = 30
 RUNNING = True
 
-#player attributes
-PLAYER_ACC = 2
-PLAYER_FRICTION = -0.12
+# player attributes
+PLAYER_ACC  = 2
 MOB_ACC = 2
-MOB_FRICTION = -0.12
 
-#colors
+PLAYER_FRICTION = -0.12
+MOB_FRICTION = -0.12
+PLAYER_JUMP = 20
+
+# colors
 BLACK = (0,0,0)
-BLUE = (50,50,255)
-RED = (255,0,0)
+WHITE = (255,255,255)
+BLUE = (50, 50, 255)
+RED = (255, 50, 50)
