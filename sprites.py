@@ -25,8 +25,6 @@ class Player(Sprite):
         self.acc = vec(0,0)
         self.cofric = 0.1
         self.canjump = False
-        self.rot = 0
-        self.rot_speed = 0
         self.last_update = pg.time.get_ticks()
         self.left_key = pg.K_a
     def input(self):
@@ -82,31 +80,25 @@ class Player(Sprite):
     def mob_collide(self):
             hits = pg.sprite.spritecollide(self, self.game.enemies, True)
             if hits:
-                print("you collided with an enemy...")
+                print("damage taken!")
                 self.game.score += 1
                 print(SCORE)
     def update(self):
-        self.rot_speed = 0
-        if self.rot > 312 or self.rot < 56:
-            self.canjump = True
-        else:
-            self.canjump = False
+        self.canjump = True
         self.acc = vec(0, PLAYER_GRAV)
         self.acc.x = self.vel.x * PLAYER_FRICTION
         self.input()
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
-        self.rotate()
         self.rect.midbottom = self.pos
 
 class Mob(Sprite):
     def __init__(self,width,height, color):
         Sprite.__init__(self)
-        self.game = game
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width,self.height))
-        self.color = color
+        self.color = DARK_RED
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
@@ -114,20 +106,7 @@ class Mob(Sprite):
         self.vel = vec(randint(1,5),randint(1,5))
         self.acc = vec(1,1)
         self.cofric = 0.01
-        print(self.vel.x)
-        print(self.vel.y)
     # ...
-    def jump(self):
-        hits = pg.sprite.spritecollide(self, self.game.platforms, False)
-        if hits:
-            if self.vel.y > 1:
-                self.vel = vec(5,-10)
-                print(self.vel.y)
-            else:
-                self.pos.y = hits[0].rect.top
-                self.vel.y = 0
-        else:
-            self.vel.x = 0
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
@@ -143,8 +122,8 @@ class Mob(Sprite):
             # self.acc = self.vel * -self.cofric
     def update(self):
         self.inbounds()
-        # self.pos.x += self.vel.x
-        # self.pos.y += self.vel.y
+        self.pos.x += self.vel.x
+        self.pos.y += self.vel.y
         self.pos += self.vel
         self.rect.center = self.pos
 

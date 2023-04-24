@@ -34,7 +34,7 @@ class Game:
         print(self.screen)
     
     def load_data(self):
-        self.player_img = pg.image.load(path.join(img_folder, "bellar_man_single_frm.png")).convert()
+        self.player_img = pg.image.load(path.join(img_folder, "doom_guy.jpg")).convert()
 
     def new(self):
         # starting a new game
@@ -49,14 +49,14 @@ class Game:
         self.all_sprites.add(self.plat1)
 
         self.platforms.add(self.plat1)
-        
+      
         self.all_sprites.add(self.player)
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
         for i in range(0,10):
-            m = Mob(self, 20,20,(0,255,0))
+            m = Mob(20,20,(0,255,0))
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
@@ -98,9 +98,10 @@ class Game:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
     def draw(self):
-        self.screen.fill(BLUE)
+        self.screen.fill(RED)
+        self.draw_text("Welcome to the UnderWorld", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
-        self.draw_text(str(self.player.rot), 24, WHITE, WIDTH/2, HEIGHT/2)
+
         # is this a method or a function?
         pg.display.flip()
     def draw_text(self, text, size, color, x, y):
