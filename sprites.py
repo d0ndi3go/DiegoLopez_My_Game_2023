@@ -100,7 +100,7 @@ class Player(Sprite):
         self.rect.midbottom = self.pos
 
 class Mob(Sprite):
-    def __init__(self, game, width,height, color):
+    def __init__(self,width,height, color):
         Sprite.__init__(self)
         self.game = game
         self.width = width
@@ -109,9 +109,9 @@ class Mob(Sprite):
         self.color = color
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
-        # self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(100, 100)
-        self.vel = vec(0,0)
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.vel = vec(randint(1,5),randint(1,5))
         self.acc = vec(1,1)
         self.cofric = 0.01
         print(self.vel.x)
@@ -142,12 +142,11 @@ class Mob(Sprite):
             self.vel.y *= -1
             # self.acc = self.vel * -self.cofric
     def update(self):
-        self.acc = vec(0, PLAYER_GRAV)
-        self.jump()
-        self.acc.x = self.vel.x * PLAYER_FRICTION
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        self.rect.midbottom = self.pos
+        self.inbounds()
+        # self.pos.x += self.vel.x
+        # self.pos.y += self.vel.y
+        self.pos += self.vel
+        self.rect.center = self.pos
 
 # create a new platform class...
 
