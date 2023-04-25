@@ -78,7 +78,7 @@ class Player(Sprite):
         if self.rect.y < 0:
             print("i am off the top of the screen...")
     def mob_collide(self):
-            hits = pg.sprite.spritecollide(self, self.game.enemies, True)
+            hits = pg.sprite.spritecollide(self, self.game.enemies, False)
             if hits:
                 print("damage taken!")
                 self.game.score += 1

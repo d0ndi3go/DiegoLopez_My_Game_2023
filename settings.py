@@ -20,8 +20,9 @@ SCORE = 0
 PAUSED = False
 
 # Starting platforms
-PLATFORM_LIST = [(0, HEIGHT - 40, WIDTH, 40, (GREY), "normal"),
-                 (WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20, (BLACK), "bouncey"),
-                 (125, HEIGHT - 350, 100, 5, (200,100,50), "disappearing "),
+PLATFORM_LIST = [(0, HEIGHT - 40, WIDTH, 40, (GREY), "ice"),
+                 (200, HEIGHT * 3 / 4, 100, 20, (BLACK), "bouncey"),
+                 (125, HEIGHT - 350, 100, 5, (200,100,50), "disappearing"),
+                 (500, HEIGHT - 350, 100, 5, (200,100,50), "disappearing"),
                  (350, 200, 100, 20, (GREY), "normal"),
-                 (175, 100, 50, 20, (GREY), "normal")]
+                 (600, 50, 50, 20, (GREY), "normal")]

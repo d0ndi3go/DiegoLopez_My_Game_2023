@@ -85,7 +85,6 @@ class Game:
                 self.player.vel.x *= -1
             else:
                 self.player.vel.y *= -1
-            
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
