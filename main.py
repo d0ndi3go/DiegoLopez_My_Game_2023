@@ -1,20 +1,16 @@
-# File created by: Chris Cozort
+# File created by: Diego Lopez
 
 # testing testing
 # dhuhrfje
 # fhfkffjfrocvjrirjji 
 # fjifjfoej
-#
-# import libs
 import pygame as pg
 import os
-# import settings 
 from settings import *
 from sprites import *
 from math import *
 from math import ceil
 from os import path
-# from pg.sprite import Sprite
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
@@ -44,13 +40,11 @@ class Game:
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.player = Player(self)
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
-        self.all_sprites.add(self.plat1)
-
-        self.platforms.add(self.plat1)
-      
         self.all_sprites.add(self.player)
+        
+        self.scoreboard = Scoreboard(self)
+        self.all_sprites.add(self.scoreboard)
+
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
@@ -60,6 +54,7 @@ class Game:
             self.all_sprites.add(m)
             self.enemies.add(m)
         self.run()
+
     def run(self):
         self.playing = True
         while self.playing:
@@ -67,7 +62,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    
+
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -77,6 +72,7 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
+
     def update(self):
         self.all_sprites.update()
         mhits = pg.sprite.spritecollide(self.player, self.enemies, False)
@@ -96,13 +92,15 @@ class Game:
                 else:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
+
     def draw(self):
         self.screen.fill(RED)
-        self.draw_text("Welcome to the UnderWorld", 24, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text("Welcome to the UnderWorld... Dodge the enemies or you died", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.all_sprites.draw(self.screen)
 
         # is this a method or a function?
         pg.display.flip()
+
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
@@ -110,6 +108,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
+
     def get_mouse_now(self):
         x,y = pg.mouse.get_pos()
         return (x,y)

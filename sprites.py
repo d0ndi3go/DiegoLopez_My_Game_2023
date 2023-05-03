@@ -58,6 +58,7 @@ class Player(Sprite):
             self.rect = self.image.get_rect()
             self.rect.center = old_center
     def jump(self):
+        # jump only if standing on a platform
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1
@@ -141,3 +142,27 @@ class Platform(Sprite):
         self.rect.x = x
         self.rect.y = y
         self.variant = variant
+
+class Scoreboard(Sprite):
+    def __init__(self, game):
+        Sprite.__init__(self)
+        self.game = game
+        self.font = pg.font.Font(None, 50)
+        self.color = BLACK
+        self.score = 100 # initialize the score to 100
+        self.image = self.font.render("Score: {}".format(self.score), True, self.color)
+        self.rect = self.image.get_rect()
+        self.rect.topright = (WIDTH-10, 10)
+        
+    def update(self):
+        hits = pg.sprite.spritecollide(self.game.player, self.game.enemies, False) # check for collisions
+        if hits:
+            self.score -= 1  # decrease the score by 1 if there's a collision
+        if self.score < 0:
+            self.score = 0 # prevent the score from becoming negative
+            self.game.playing = False
+            self.game.show_go_screen()
+        if self.score != self.game.score: # update the score if it has changed
+            self.game.score = self.score
+            self.image = self.font.render("Score: {}".format(self.score), True, self.color)
+        self.rect.topright = (WIDTH-10, 10)
